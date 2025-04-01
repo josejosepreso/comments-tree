@@ -7,16 +7,19 @@ class SinglyLinkedList {
     addLast(node) {
 	if (this.size == 0) {
 	    this.head = node;
+	    this.size++;
 	    return true;
 	}
 
 	let current = this.head;
 
-	while (current != null) {
-	    current = current.getNext();
+	while (current.next) {
+	    current = current.next;
 	}
 
-	current.setNext(node);
+	current.next = node;
+	
+	this.size++;
 
 	return true;
     }
