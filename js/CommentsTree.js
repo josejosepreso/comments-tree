@@ -1,20 +1,21 @@
 class CommentsTree {
     constructor() {
-	this.root = null;
+	this.root = new Comment(0, null, null);
     }
 
     __addToNode(newNode, current) {
-	if (current.id == newNode.parentId) {
-	    current.addChild(newNode);
-	    return;
-	}
-
-	if (current.children.head)
+	if (current) {
+	    if (current.id == newNode.parentId) {
+		current.addChild(newNode);
+		return;
+	    }
+	    
 	    this.__addToNode(newNode, current.children.head);
-
-	while (current.next) {
-	    current = current.next;
-	    this.__addToNode(newNode, current);
+	    
+	    while (current.next) {
+		current = current.next;
+		this.__addToNode(newNode, current);
+	    }
 	}
     }
 
@@ -31,23 +32,27 @@ class CommentsTree {
 	this.__addToNode(node, this.root);
     }
 
-    __getNodes(current, result, depth) {
+    __getNodes(current, depth) {
 	if (!current) {
-	    return result;
-	}
-	
-	const aux = current;
-	
-	while (current) {
-	    let comment = new HTMLComment(current.id, current.author, current.content);
-	    comment.style.marginLeft = `${depth}px`;
-
-	    result.appendChild(comment);
-
-	    current = current.next;
+	    return null;
 	}
 
-	return this.__getNodes(aux.children.head, result, depth + 20);
+	let result = document.createElement("div");
+	
+	const comment = new HTMLComment(current.id, current.author, current.content);
+	comment.style.marginLeft = `${depth}px`;
+	
+	result.append(comment);
+
+	let node = current.children.head;
+	
+	while (node) {
+	    result.appendChild(this.__getNodes(node, depth + 20));
+
+	    node = node.next;
+	}
+
+	return result;
     }
 
     toHTML() {
@@ -55,10 +60,6 @@ class CommentsTree {
 	    return null;
 	}
 
-	let result = document.createElement("div");
-
-	result = this.__getNodes(this.root, result, 0);
-
-	return result;
+	return this.__getNodes(this.root, -20);
     }
 }
