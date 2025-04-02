@@ -1,8 +1,9 @@
 class HTMLNewComment extends HTMLDivElement {
     constructor(id) {
 	super();
-
+	
 	this.id = id;
+	this.button = document.createElement("button");
 
 	this.classList.add("comment", "new-comment");
 
@@ -15,13 +16,12 @@ class HTMLNewComment extends HTMLDivElement {
 	div0.appendChild(input);
 
 	const div1 = document.createElement("div");
+	
+	this.button.classList.add("add-comment");
+	this.button.innerText = "Comment";
+	this.button.addEventListener("click", Action.addComment.bind(input));
 
-	const button = document.createElement("button");
-	button.classList.add("add-comment");
-	button.innerText = "Comment";
-	button.addEventListener("click", Action.addComment.bind(null, this));
-
-	div1.appendChild(button);
+	div1.appendChild(this.button);
 
 	this.appendChild(div0);
 	this.appendChild(div1);

@@ -1,21 +1,26 @@
 class CommentsTree {
     constructor() {
-	this.root = new Comment(0, null, null);
+	this.root = new Comment(null, null, null);
+	this.root.id = 0;
+	this.nNodes = 0;
     }
 
     __addToNode(newNode, current) {
-	if (current) {
-	    if (current.id == newNode.parentId) {
-		current.addChild(newNode);
-		return;
-	    }
-	    
-	    this.__addToNode(newNode, current.children.head);
-	    
-	    while (current.next) {
-		current = current.next;
-		this.__addToNode(newNode, current);
-	    }
+	if (!current) {
+	    return null;
+	}
+	
+	if (current.id == newNode.parentId) {
+	    newNode.id = current.prompt ? null : ++this.nNodes;
+	    current.addChild(newNode);
+	    return;
+	}
+
+	this.__addToNode(newNode, current.children.head);
+		
+	while (current.next) {
+	    current = current.next;
+	    this.__addToNode(newNode, current);
 	}
     }
 
@@ -38,11 +43,16 @@ class CommentsTree {
 	}
 
 	let result = document.createElement("div");
+
+	let comment = new HTMLComment(current.id, current.author, current.content);
+
+	if (current.prompt) {
+	    comment = new HTMLNewComment(`new-comment-${current.parentId}`);
+	}
 	
-	const comment = new HTMLComment(current.id, current.author, current.content);
 	comment.style.marginLeft = `${depth}px`;
 	
-	result.append(comment);
+	result.appendChild(comment);
 
 	let node = current.children.head;
 	

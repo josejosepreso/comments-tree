@@ -18,8 +18,12 @@ class HTMLComment extends HTMLDivElement {
 	const interaction = document.createElement("div");
 	interaction.classList.add("comment-interaction");
 	const a = document.createElement("a");
-	a.href = "#";
 	a.innerText = "Reply";
+	a.style.color = "blue";
+	a.style.textDecoration = "underline";
+	a.style.cursor = "pointer";
+	a.addEventListener("click", Action.reply.bind(this.id));
+	
 	interaction.appendChild(a);
 
 	this.appendChild(author);

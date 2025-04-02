@@ -55,13 +55,16 @@
 	justify-content: end;
     }
     div.new-comment {
-	padding: 1em 0;
+	padding: 1em;
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
     }
     input {
 	height: 30px;
+	width: 100%;
+    }
+    div.comment-content {
 	width: 100%;
     }
   </style>
@@ -73,23 +76,26 @@
 	</div>
 	<div id="buttons">
 	  <button>Like</button>
-	  <button>Comment</button>
+	  <button id="comment">Comment</button>
 	  <button>Share</button>
 	</div>
       </div>
     </div>
+    <!--
     <div id="comments-container">
       <div id="comments-section">
 	<h3>Comments</h3>
 	<div id="comments">	   
 	</div>
       </div>
-    </div>
+    </div>-->
+    <script src="./js/comments.js"></script>
     <script src="./js/SinglyLinkedList.js"></script>
     <script src="./js/CommentsTree.js"></script>
     <script src="./js/Comment.js"></script>
     <script src="./js/HTMLComment.js"></script>
     <script src="./js/HTMLNewComment.js"></script>
+    <script src="./js/Store.js"></script>
     <script src="./js/Action.js"></script>
     <script src="./js/main.js"></script>
   </body>  
