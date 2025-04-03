@@ -5,7 +5,11 @@ class SinglyLinkedList {
     }
 
     addLast(node) {
-	if (this.size == 0) {
+	if (!node.value) {
+	    return false;
+	}
+	
+	if (!this.head) {
 	    this.head = node;
 	    this.size++;
 	    return true;
@@ -23,4 +27,28 @@ class SinglyLinkedList {
 
 	return true;
     }
+
+    addFirst(node) {
+	let head = this.head;
+
+	this.head = node;
+
+	node.next = head;
+
+	return true;
+    }
+
+    reverse() {
+	const tmp = new SinglyLinkedList();
+
+	for (let node of this) {
+	    tmp.addFirst(node);
+	}
+
+	return tmp;
+    }
+
+    [Symbol.iterator]() {
+	return new Iterator(this.head);
+    };    
 }

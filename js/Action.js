@@ -6,12 +6,12 @@ class Action {
 	    return;
 	}
 	
-	Action.commentsTree.addNode(new Comment("Hater", this.value, parent));
+	Action.commentsTree.addComment(new Comment("Hater", this.value, parent));
 	Action.reloadComments();
     }
 
     static reply() {
-	Action.commentsTree.addNode(new Comment(null, null, this, true));
+	Action.commentsTree.addComment(new Comment(null, null, this, true));
 	Action.reloadComments();
 	
 	/*
@@ -20,17 +20,7 @@ class Action {
 	const button = nodes.children[1];
 	
 	button.addEventListener("click", Action.addReply.bind(input, this));*/
-    }
-
-    static reverse(HTMLCollection) {
-	const div = document.createElement("div");
-
-	for (let i = HTMLCollection.length - 1; i > 0; --i) {
-	    div.appendChild(HTMLCollection[i]);
-	}
-
-	return div;
-    }
+    } 
     
     static addComment() {
 	if (this.value.trim() === "") {
@@ -41,7 +31,7 @@ class Action {
 
 	const comment = new Comment(author, this.value, 0);
 	
-	Action.commentsTree.addNode(comment);
+	Action.commentsTree.addComment(comment);
 
 	Action.reloadComments();
 	
@@ -52,8 +42,10 @@ class Action {
 
     static reloadComments() {
 	document.querySelector("div#new-comment-0").nextSibling.remove();
-	document.querySelector("div#comments").appendChild(Action.reverse(Action.commentsTree.toHTML().children));
-	Action.badDesign();
+
+	for (let node of Action.commentsTree.toHTML().reverse()) {
+	    document.querySelector("div#comments").appendChild(node.value);
+	}
     }
 
     static loadComments() {
@@ -78,7 +70,7 @@ class Action {
 	Action.commentsTree = new CommentsTree();
 
 	for (let k in comments) {
-	    Action.commentsTree.addNode(
+	    Action.commentsTree.addComment(
 		new Comment(
 		    comments[k].author ?? "Me"
 		    , comments[k].content ?? ""
@@ -86,20 +78,11 @@ class Action {
 		)
 	    );
 	}
-	
-	div2.appendChild(Action.reverse(Action.commentsTree.toHTML().children));
+
+	for (let node of Action.commentsTree.toHTML().reverse()) {
+	    div2.appendChild(node.value);
+	}
 
 	document.body.appendChild(div0);
-
-	Action.badDesign();
-    }
-
-    static badDesign() {
-	for (let c of document.querySelectorAll("div.comment")) {
-	    if (c.id == "0") {
-		c.remove();
-		break;
-	    }
-	}	
     }
 }

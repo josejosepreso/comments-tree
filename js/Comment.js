@@ -1,6 +1,5 @@
 class Comment {
     constructor(author, content, parentId, prompt) {
-	this.next = null;
 	this.id = null;
 	this.author = author;
 	this.content = content;
