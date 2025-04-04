@@ -81,15 +81,15 @@
 	</div>
       </div>
     </div>
-    <script src="./js/Iterator.js"></script>
-    <script src="./js/Node.js"></script>
-    <script src="./js/SinglyLinkedList.js"></script>
-    <script src="./js/CommentsTree.js"></script>
-    <script src="./js/Comment.js"></script>
-    <script src="./js/HTMLComment.js"></script>
-    <script src="./js/HTMLNewComment.js"></script>
-    <script src="./js/Store.js"></script>
-    <script src="./js/Action.js"></script>
-    <script src="./js/main.js"></script>
+    <script src="./assets/js/Iterator.js"></script>
+    <script src="./assets/js/Node.js"></script>
+    <script src="./assets/js/SinglyLinkedList.js"></script>
+    <script src="./assets/js/CommentsTree.js"></script>
+    <script src="./assets/js/Comment.js"></script>
+    <script src="./assets/js/HTMLComment.js"></script>
+    <script src="./assets/js/HTMLNewComment.js"></script>
+    <script src="./assets/js/Store.js"></script>
+    <script src="./assets/js/Action.js"></script>
+    <script src="./assets/js/main.js"></script>
   </body>  
 </html>
