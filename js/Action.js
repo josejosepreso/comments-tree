@@ -1,35 +1,36 @@
 class Action {
     static commentsTree = null;
 
-    static addReply(parent) {
-	if (this.value.trim() === "") {
-	    return;
-	}
+    static addReply(author, input, parentId) {
+	const comment = new Comment(author, input.value, parentId)
 	
-	Action.commentsTree.addComment(new Comment("Hater", this.value, parent));
+	Action.commentsTree.addComment(comment);
+	
 	Action.reloadComments();
+	
+	input.value = "";
+
+	Store.saveComment(comment);
     }
 
     static reply() {
 	Action.commentsTree.addComment(new Comment(null, null, this, true));
 	Action.reloadComments();
-	
-	/*
-	const nodes = document.querySelector(`div#new-comment-${this-1}`).children[0];	
-	const input = nodes.children[0];
-	const button = nodes.children[1];
-	
-	button.addEventListener("click", Action.addReply.bind(input, this));*/
     } 
     
-    static addComment() {
+    static addComment(parentId) {
 	if (this.value.trim() === "") {
 	    return;
 	}
-	
+
 	const author = "Me";
 
-	const comment = new Comment(author, this.value, 0);
+	if (parentId) {
+	    Action.addReply(author, this, parentId);
+	    return;
+	}
+
+	const comment = new Comment(author, this.value);
 	
 	Action.commentsTree.addComment(comment);
 
@@ -43,9 +44,13 @@ class Action {
     static reloadComments() {
 	document.querySelector("div#new-comment-0").nextSibling.remove();
 
+	const div = document.createElement("div");
+
 	for (let node of Action.commentsTree.toHTML().reverse()) {
-	    document.querySelector("div#comments").appendChild(node.value);
+	    div.appendChild(node.value);
 	}
+	
+	document.querySelector("div#comments").appendChild(div);
     }
 
     static loadComments() {
@@ -62,12 +67,17 @@ class Action {
 
 	const div2 = document.createElement("div");
 	div2.id = "comments";
-	div2.appendChild(new HTMLNewComment("new-comment-0"));
+
+	const newComment = new HTMLNewComment();
+	newComment.id = "new-comment-0"
+	div2.appendChild(newComment);
 
 	div1.appendChild(h3);
 	div1.appendChild(div2);
 
 	Action.commentsTree = new CommentsTree();
+	
+	const comments = JSON.parse(Store.loadComments());
 
 	for (let k in comments) {
 	    Action.commentsTree.addComment(
@@ -78,10 +88,14 @@ class Action {
 		)
 	    );
 	}
+	
+	const div = document.createElement("div");
 
 	for (let node of Action.commentsTree.toHTML().reverse()) {
-	    div2.appendChild(node.value);
+	    div.appendChild(node.value);
 	}
+
+	div2.appendChild(div);
 
 	document.body.appendChild(div0);
     }

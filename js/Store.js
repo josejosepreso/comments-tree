@@ -9,7 +9,7 @@ class Store {
 	comments[comment.id] = {
 	    author: comment.author,
 	    content: comment.content,
-	    parent: comment.parent,
+	    parent: comment.parentId,
 	};
 
 	window.localStorage.setItem("comments", JSON.stringify(comments));

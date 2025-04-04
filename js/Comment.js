@@ -4,7 +4,7 @@ class Comment {
 	this.author = author;
 	this.content = content;
 	this.children = new SinglyLinkedList();
-	this.parentId = parentId;
+	this.parentId = parentId ?? 0;
 	this.prompt = prompt ?? false;
     }
     

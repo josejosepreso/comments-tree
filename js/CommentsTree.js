@@ -9,8 +9,12 @@ class CommentsTree {
 	    return;
 	}
 
-	for (let current of nodes) {	
-	    if (current.value.id == newComment.parentId) {
+	for (let current of nodes) {
+	    if (false && newComment.prompt) {
+		return;
+	    }
+	    
+	    if (current.value.id == newComment.parentId) {	
 		newComment.id = newComment.prompt ? null : ++this.nComments;
 		current.value.addChild(new Node(newComment));
 		return;
@@ -38,7 +42,7 @@ class CommentsTree {
 	let result = document.createElement("div");
 
 	let comment = current.value.prompt
-	    ? new HTMLNewComment(`new-comment-${current.parentId}`)
+	    ? new HTMLNewComment(current.value.parentId)
 	    : new HTMLComment(current.value.id, current.value.author, current.value.content);
 	
 	comment.style.marginLeft = `${depth}px`;
@@ -52,16 +56,15 @@ class CommentsTree {
 	return result;
     }
 
-    toHTML() {
-	if (this.roots.size == 0) {
-	    return null;
-	}
-
-	// const result = document.createElement("div");
+    toHTML() {	
 	const result = new SinglyLinkedList();
 
+	if (this.roots.size == 0) {
+	    result.addLast(new Node(document.createElement("div")));
+	    return result;
+	}
+
 	for (let comment of this.roots) {
-	    //result.appendChild(this.__getHTMLComment(comment, 0));
 	    result.addLast(new Node(this.__getHTMLComment(comment, 0)));
 	}
 	
