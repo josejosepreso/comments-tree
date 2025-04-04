@@ -1,6 +1,6 @@
 <?php
 
-require_once "./Node.php";
+include_once "./Node.php";
 
 class SinglyLinkedList {
     private ?Node $head = null;

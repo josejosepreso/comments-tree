@@ -76,20 +76,11 @@
 	</div>
 	<div id="buttons">
 	  <button>Like</button>
-	  <button id="comment">Comment</button>
+	  <button onclick="return loadComments()" id="comment">Comment</button>
 	  <button>Share</button>
 	</div>
       </div>
     </div>
-    <script src="./assets/js/Iterator.js"></script>
-    <script src="./assets/js/Node.js"></script>
-    <script src="./assets/js/SinglyLinkedList.js"></script>
-    <script src="./assets/js/CommentsTree.js"></script>
-    <script src="./assets/js/Comment.js"></script>
-    <script src="./assets/js/HTMLComment.js"></script>
-    <script src="./assets/js/HTMLNewComment.js"></script>
-    <script src="./assets/js/Store.js"></script>
-    <script src="./assets/js/Action.js"></script>
     <script src="./assets/js/main.js"></script>
   </body>  
 </html>

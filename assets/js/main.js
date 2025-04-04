@@ -1,1 +1,5 @@
-document.querySelector("button#comment").addEventListener("click", Action.loadComments.bind(null));
+function loadComments() {
+    fetch("/controllers/GetComments.php")
+	.then(res => { console.log(res); })
+	.catch();
+}

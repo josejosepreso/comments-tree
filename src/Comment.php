@@ -1,6 +1,6 @@
 <?php
 
-require_once "./SinglyLinkedList.php";
+include_once "./SinglyLinkedList.php";
 
 class Comment {
     private ?int $id;

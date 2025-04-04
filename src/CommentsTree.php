@@ -1,8 +1,8 @@
 <?php
 
-require_once "./SinglyLinkedList.php";
-require_once "./ListIterator.php";
-require_once "./Node.php";
+include_once "./SinglyLinkedList.php";
+include_once "./ListIterator.php";
+include_once "./Node.php";
 
 class CommentsTree {
     private int $nComments;
